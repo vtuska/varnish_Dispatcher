@@ -1,4 +1,5 @@
 C{
+#include <string.h>
 #include <stdlib.h>
 #define __USE_GNU
 #include <search.h>
@@ -40,14 +41,17 @@ int dispatcher_search(struct sess *sp, char *prefix) {
 	ENTRY e;
 	_VGC_Function func;
 
+	int i, url_len, buf_len;
+
 	char *host;
 	char *url;
 
 	host = VRT_GetHdr(sp, HDR_REQ, "\005Host:");
 	url = VRT_r_req_url(sp);
+	url_len = strlen(url);
 
 	char buf[256];
-	snprintf(buf, sizeof buf, "%s_%s%s", prefix, host, url);
+	buf_len = snprintf(buf, sizeof buf, "%s_%s%s", prefix, host, url);
 
 	e.key = buf;
 	ep=hsearch(e, FIND);
@@ -55,8 +59,26 @@ int dispatcher_search(struct sess *sp, char *prefix) {
 		func=ep->data;
 		if (func != NULL) {
 			func(sp);
+			return 0;
+		}
+	} else {
+		for(i=buf_len;i>(buf_len-url_len);i--) {
+			if (buf[i] == '/') {
+				buf[i] = '\0';
+				e.key = buf;
+				ep=hsearch(e, FIND);
+				if (ep != NULL ) {
+					func=ep->data;
+					if (func != NULL) {
+						func(sp);
+						return 0;
+					}
+				}
+
+			}
 		}
 	}
+
 	return 0;
 }
 }C
