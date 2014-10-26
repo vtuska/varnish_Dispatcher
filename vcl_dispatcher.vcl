@@ -99,12 +99,13 @@ int dispatcher_search(struct sess *sp, int prefix) {
 			if ( !(prefix&flag) ) {
 				return 0;
 			}
+		} else {
+			return 0;
 		}
 	}
 
 	host = VRT_GetHdr(sp, HDR_REQ, "\005Host:");
 	url = VRT_r_req_url(sp);
-	url_len = strlen(url);
 	buf_len = snprintf(buf, sizeof buf, "%d_%s%s", prefix, host, url);
 
 	e.key = buf;
@@ -121,6 +122,7 @@ int dispatcher_search(struct sess *sp, int prefix) {
 			return 0;
 		}
 	} else {
+		url_len = strlen(url);
 		for(i=buf_len;i>(buf_len-url_len);i--) {
 			if (buf[i] == '/') {
 				buf[i] = '\0';
