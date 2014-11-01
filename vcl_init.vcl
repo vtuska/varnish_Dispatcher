@@ -1,3 +1,3 @@
 C{
-	dispatcher_init();
+	dispatcher_init(sp);
 }C

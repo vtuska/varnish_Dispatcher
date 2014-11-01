@@ -13,63 +13,63 @@ backend default {
     .port = "80";
 }
 
-#include "vcl_dispatcher.vcl";
-#include "vcl_recv.vcl";
-#include "vcl_pipe.vcl";
-#include "vcl_pass.vcl";
-#include "vcl_hash.vcl";
-#include "vcl_hit.vcl";
-#include "vcl_miss.vcl";
-#include "vcl_fetch.vcl";
-#include "vcl_deliver.vcl";
-#include "vcl_error.vcl";
+include "vcl_dispatcher.vcl";
+include "vcl_recv.vcl";
+include "vcl_pipe.vcl";
+include "vcl_pass.vcl";
+include "vcl_hash.vcl";
+include "vcl_hit.vcl";
+include "vcl_miss.vcl";
+include "vcl_fetch.vcl";
+include "vcl_deliver.vcl";
+include "vcl_error.vcl";
 
 sub vcl_init {
-#	include "vcl_init.vcl";
+	include "vcl_init.vcl";
 }
 
 sub vcl_recv {
-#	include "vcl_recv_functions.vcl";
-	include "vcl_recv_test.vcl";
+	include "vcl_recv_functions.vcl";
+#	include "vcl_recv_test.vcl";
 }
 
 sub vcl_pipe {
-#	include "vcl_pipe_functions.vcl";
-	include "vcl_pipe_test.vcl";
+	include "vcl_pipe_functions.vcl";
+#	include "vcl_pipe_test.vcl";
 }
 
 sub vcl_pass {
-#	include "vcl_pass_functions.vcl";
-	include "vcl_pass_test.vcl";
+	include "vcl_pass_functions.vcl";
+#	include "vcl_pass_test.vcl";
 }
 
 sub vcl_hash {
-#	include "vcl_hash_functions.vcl";
-	include "vcl_hash_test.vcl";
+	include "vcl_hash_functions.vcl";
+#	include "vcl_hash_test.vcl";
 }
 
 sub vcl_hit {
-#	include "vcl_hit_functions.vcl";
-	include "vcl_hit_test.vcl";
+	include "vcl_hit_functions.vcl";
+#	include "vcl_hit_test.vcl";
 }
 
 sub vcl_miss {
-#	include "vcl_miss_functions.vcl";
-	include "vcl_miss_test.vcl";
+	include "vcl_miss_functions.vcl";
+#	include "vcl_miss_test.vcl";
 }
 
 sub vcl_fetch {
-#	include "vcl_fetch_functions.vcl";
-	include "vcl_fetch_test.vcl";
+	include "vcl_fetch_functions.vcl";
+#	include "vcl_fetch_test.vcl";
 }
 
 sub vcl_deliver {
-#	include "vcl_deliver_functions.vcl";
-	include "vcl_deliver_test.vcl";
+	include "vcl_deliver_functions.vcl";
+#	include "vcl_deliver_test.vcl";
 }
 
 sub vcl_error {
-#	include "vcl_error_functions.vcl";
-	include "vcl_error_test.vcl";
+	include "vcl_error_functions.vcl";
+#	include "vcl_error_test.vcl";
 }
 
