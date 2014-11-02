@@ -208,7 +208,6 @@ int dispatcher_search(struct sess *sp, unsigned int prefix) {
 		for(i=buf_len;i>(buf_len-url_len);i--) {
 			if (buf[i] == '/') {
 				buf[i] = '\0';
-				//e.key = buf;
 				rc=hsearch_r(e, FIND, &ep, htab[idx]);
 				if (rc) {
 					worker=(Worker *)ep->data;
@@ -217,10 +216,11 @@ int dispatcher_search(struct sess *sp, unsigned int prefix) {
 						if ( prefix == 1 ) {
 							snprintf(buf_flag, sizeof buf_flag, "%d", worker->flag);
 							VRT_SetHdr(sp, HDR_REQ, "\007X-flag:", buf_flag, vrt_magic_string_end);
+
 //							s_flag[0] = (unsigned char)(worker->flag>>8);
 //							s_flag[1] = (unsigned char)worker->flag;
 //							s_flag[2] = (unsigned char)0;
-							VRT_l_client_identity(sp, s_flag, vrt_magic_string_end);
+//							VRT_l_client_identity(sp, s_flag, vrt_magic_string_end);
 						}
 						func(sp);
 						return 0;
